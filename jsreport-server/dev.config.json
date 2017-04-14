@@ -1,0 +1,37 @@
+{
+  "connectionString": { "name": "fs" },
+  "httpPort": 5004,
+  "scripts": {
+    "allowedModules": ["http"]
+  },
+  "authentication": {
+    "cookieSession": {
+      "secret": "<your strong secret>"
+    },
+    "admin": {
+      "username": "admin",
+      "password": "password"
+    },
+    "authorizationServer": {
+      "tokenValidation": {
+        "endpoint": "http://localhost:5000/connect/introspect",
+        "usernameField": "username",
+        "activeField": "active",
+        "auth": {
+          "type": "basic",
+          "basic": {
+            "clientId": "jsreport",
+            "clientSecret": "secret"
+          }
+        }
+      }
+    },
+    "enabled": true
+  },
+  "authorization": {
+    "enabled": true
+  },
+  "sample-template": {
+    "createSamples": true
+  }
+}

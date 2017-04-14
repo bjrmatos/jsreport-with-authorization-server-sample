@@ -1,0 +1,28 @@
+{
+  "name": "jsreport-with-authorization-server-sample",
+  "version": "1.0.0",
+  "description": "Sample demonstrating how to delegate authentication in jsreport to an external authorization server to support Single Sign On",
+  "main": "index.js",
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "start": "node start.js",
+    "start-authorization-server": "sh run-dotnet.sh",
+    "start-webapp-client": "node ./webapp-client/server.js",
+    "start-jsreport": "node ./jsreport-server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "BJR Matos <bjrmatos@gmail.com> (https://github.com/bjrmatos)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.15.2",
+    "jsreport": "1.6.0",
+    "jsreport-authentication": "github:jsreport/jsreport-authentication"
+  },
+  "devDependencies": {
+    "npm-run-all": "4.0.2",
+    "which": "1.2.14"
+  }
+}
