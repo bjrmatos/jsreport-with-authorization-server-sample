@@ -1,6 +1,8 @@
 
 # jsreport authentication with authorization server (IdentityServer4)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/bjrmatos/jsreport-with-authorization-server-sample.svg)](https://greenkeeper.io/)
+
 Sample demonstrating how to delegate authentication in jsreport to an external authorization server to support Single Sign On
 
  > Sample based on the [original Node.js API IdentityServer4 sample](https://github.com/IdentityServer/IdentityServer4.Samples/tree/release/NodeJsApi)
