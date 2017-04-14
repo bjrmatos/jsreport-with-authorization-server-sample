@@ -17,6 +17,9 @@
         "endpoint": "http://localhost:5000/connect/introspect",
         "usernameField": "username",
         "activeField": "active",
+        "scope": {
+          "valid": ["jsreport"]
+        },
         "auth": {
           "type": "basic",
           "basic": {
