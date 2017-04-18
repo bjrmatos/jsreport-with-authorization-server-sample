@@ -25,8 +25,8 @@ The sample demonstrates how jsreport can be exposed as a product with Single Sig
 
 2. `git clone https://github.com/bjrmatos/jsreport-with-authorization-server-sample.git`
 
-3. add to `/etc/hosts` or to `C:\Windows\System32\drivers\etc` in windows the following line: 
-`127.0.0.1  jsreport-sample.com`
+3. add to `/etc/hosts` or to `C:\Windows\System32\drivers\etc` in windows the following line: <br/>
+`127.0.0.1  jsreport-sample.com`<br/>
 This will map the domain where the sample will run to the local.
 
 ### Starting authorization server
@@ -81,19 +81,19 @@ jsreport server is running with default `dev.config.json` configuration except t
 
 ```js
 "authorizationServer": {
-	"tokenValidation": {
-		"endpoint": "http://jsreport-sample.com:5000/connect/introspect",
-        "usernameField": "username",
-        "activeField": "active",
-        "scope": {
-          "valid": ["jsreport"]
-        },
-        "auth": {
-          "type": "basic",
-          "basic": {
-            "clientId": "jsreport",
-	        "clientSecret": "secret"
-	    }
+  "tokenValidation": {
+    "endpoint": "http://jsreport-sample.com:5000/connect/introspect",
+    "usernameField": "username",
+    "activeField": "active",
+    "scope": {
+      "valid": ["jsreport"]
+    },
+    "auth": {
+      "type": "basic",
+      "basic": {
+        "clientId": "jsreport",
+        "clientSecret": "secret"
+      }
 	}
 }
 ```
