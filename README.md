@@ -32,16 +32,16 @@ The sample demonstrates how jsreport can be exposed as a product with Single Sig
 
 4. Open `http://<ipaddress>:5005` (it is important that you put your real ip address an not just `localhost`) in your browser and click the "Get Profile and Access Token for jsreport" Button (`User: admin, Password: password`):
 
-![screenshot](screenshot.png)
+![screenshot](docs/screenshot.png)
 
-![screenshot-login](screenshot-login.png)
+![screenshot-login](docs/screenshot-login.png)
 
 5. Authorize jsreport application access
 
-![screenshot-login2](screenshot-login2.png)
+![screenshot-login2](docs/screenshot-login2.png)
 
 6. Render some reports
 
-![reports-list](reports-list.png)
+![reports-list](docs/reports-list.png)
 
-![report](report.png)
+![report](docs/report.png)
