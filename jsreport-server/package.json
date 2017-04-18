@@ -1,0 +1,15 @@
+{
+  "name": "jsreport-server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "jsreport": "jsreport"
+  },
+  "jsreport": {
+    "entryPoint": "server.js"
+  },
+  "dependencies": {
+    "jsreport": "1.6.0",
+    "jsreport-authentication": "github:jsreport/jsreport-authentication"
+  }
+}
