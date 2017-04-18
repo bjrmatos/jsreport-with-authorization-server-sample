@@ -73,7 +73,7 @@ Open [http://jsreport-sample.com:5005](http://jsreport-sample.com:5005)  in your
 ##Technical notes
 
 ###authorization server
-The implementation builds on the original [Identity Server sample](https://github.com/IdentityServer/IdentityServer4.Samples/tree/release/NodeJsApi). We just removed the authentication through credentials to simplify the sample startup. The `Config.cs` then includes some changes which are discussed in the next chapter.
+The implementation builds on the original [Identity Server sample](https://github.com/IdentityServer/IdentityServer4.Samples/tree/release/NodeJsApi). We just removed the authentication through credentials and use host name instead of host IP to simplify the sample startup. The `Config.cs` then includes some changes which are discussed in the next chapter.
 
 ###jsreport configuration
 jsreport server is running with default `dev.config.json` configuration except the `authorizationServer` node in the config.
