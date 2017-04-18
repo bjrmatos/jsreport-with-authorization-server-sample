@@ -57,19 +57,19 @@ You should check the running server through the browser on [http://jsreport-samp
 
 Open [http://jsreport-sample.com:5005](http://jsreport-sample.com:5005)  in your browser and click the "Get Profile and Access Token for jsreport" Button (`User: admin, Password: password`):
 
-![screenshot](docs/screenshot.png)
+![screenshot](images/screenshot.png)
 
-![screenshot-login](docs/screenshot-login.png)
+![screenshot-login](images/screenshot-login.png)
 
 5. Authorize jsreport application access
 
-![screenshot-login2](docs/screenshot-login2.png)
+![screenshot-login2](images/screenshot-login2.png)
 
 6. Render some reports
 
-![reports-list](docs/reports-list.png)
+![reports-list](images/reports-list.png)
 
-![report](docs/report.png)
+![report](images/report.png)
 
 ## Technical notes
 
