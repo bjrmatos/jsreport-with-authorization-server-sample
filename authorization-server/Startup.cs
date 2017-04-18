@@ -2,10 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using IdentityServer4;
+using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace AuthorizationServer
 {
@@ -17,13 +19,11 @@ namespace AuthorizationServer
 
             // configure identity server with in-memory stores, keys, clients and scopes
             services.AddIdentityServer()
-                .AddTemporarySigningCredential()
-                // use this with real certificate
-                // .AddSigningCredential(Config.GetSigningCertificate())
+                .AddTemporarySigningCredential()                
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())
-                .AddTestUsers(Config.GetUsers());
+                .AddTestUsers(TestUsers.Users.Concat(new[] { Config.GetAdminUser() }).ToList());
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

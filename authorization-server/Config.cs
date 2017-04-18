@@ -14,19 +14,7 @@ using System.Security.Cryptography.X509Certificates;
 namespace AuthorizationServer
 {
     public class Config
-    {
-        internal static X509Certificate2 GetSigningCertificate()
-        {
-	    var fileName = Path.Combine(Directory.GetCurrentDirectory(), "../cert.pfx");
-
-            if(!File.Exists(fileName)) {
-                throw new FileNotFoundException("Signing Certificate is missing!");
-            }
-
-            var cert = new X509Certificate2(fileName);
-            return cert;
-        }
-
+    {        
         // scopes define the resources in your system
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {
@@ -78,24 +66,20 @@ namespace AuthorizationServer
             };
         }
 
-        public static List<TestUser> GetUsers()
+        public static TestUser GetAdminUser()
         {
-            return new List<TestUser>
-            {
-                new TestUser
-                {
+            return new TestUser {
                     SubjectId = "1",
                     Username = "admin",
                     Password = "password",
 
                     Claims = new List<Claim>
                     {
-			            new Claim("username", "admin"),
+                        new Claim("username", "admin"),
                         new Claim("name", "Admin"),
                         new Claim("website", "https://admin.com")
-                    }
-                }
-            };
+                    }                
+             };
         }
     }
 }
