@@ -28,7 +28,7 @@ namespace AuthorizationServer
 
         public static IEnumerable<ApiResource> GetApiResources()
         {
-	    var secret = new Secret("secret".Sha256());
+	        var secret = new Secret("secret".Sha256());
 
             return new List<ApiResource>
             {
