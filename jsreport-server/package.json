@@ -9,6 +9,7 @@
     "entryPoint": "server.js"
   },
   "dependencies": {
-    "jsreport": "1.6.0"
+    "jsreport": "1.6.0",
+    "jsreport-authentication": "github:jsreport/jsreport-authentication"
   }
 }
