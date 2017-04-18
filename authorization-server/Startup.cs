@@ -17,7 +17,9 @@ namespace AuthorizationServer
 
             // configure identity server with in-memory stores, keys, clients and scopes
             services.AddIdentityServer()
-                .AddSigningCredential(Config.GetSigningCertificate())
+                .AddTemporarySigningCredential()
+                // use this with real certificate
+                // .AddSigningCredential(Config.GetSigningCertificate())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients())

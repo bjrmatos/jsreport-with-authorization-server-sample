@@ -1,0 +1,7 @@
+{
+  "name": "webapp-client",
+  "main": "server.js",
+  "dependencies": {
+    "express": "4.15.2"
+  }
+}

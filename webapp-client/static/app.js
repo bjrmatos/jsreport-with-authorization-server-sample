@@ -1,7 +1,9 @@
 ﻿/// <reference path="libs/oidc-client.js" />
 
+var authorizationServer = 'jsreport-sample.com'
+
 var config = {
-    authority: "http://" + HOST_IP + ":5000/",
+    authority: "http://" + authorizationServer + ":5000/",
     client_id: "js_oidc",
     redirect_uri: window.location.protocol + "//" + window.location.host + "/callback.html",
     post_logout_redirect_uri: window.location.protocol + "//" + window.location.host + "/index.html",
@@ -180,7 +182,7 @@ function callApi(reportName, reportId, cb) {
             alert('Error while trying to render report ' + reportName + ': ' + xhr.statusText)
         };
 
-        xhr.open("POST", "http://" + HOST_IP + ":5004/api/report", true);
+        xhr.open("POST", "http://" + authorizationServer + ":5004/api/report", true);
         xhr.setRequestHeader("Authorization", "Bearer " + user.access_token);
         xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
         xhr.responseType = 'arraybuffer';
@@ -222,7 +224,7 @@ function getReports(user, cb) {
 
         cb(result)
     };
-    xhr.open("GET", "http://" + HOST_IP + ":5004/odata/templates", true);
+    xhr.open("GET", "http://" + authorizationServer + ":5004/odata/templates", true);
     xhr.setRequestHeader("Authorization", "Bearer " + user.access_token);
     xhr.send();
 }

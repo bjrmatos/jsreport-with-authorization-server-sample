@@ -44,14 +44,14 @@ namespace AuthorizationServer
 
             return new List<ApiResource>
             {
-		new ApiResource("jsreport", "JavaScript based reporting platform") { ApiSecrets = new List<Secret> { secret }, UserClaims = new List<string> {"username"} }
+		        new ApiResource("jsreport", "JavaScript based reporting platform") { ApiSecrets = new List<Secret> { secret }, UserClaims = new List<string> {"username"} }
             };
         }
 
         // clients want to access resources (aka scopes)
         public static IEnumerable<Client> GetClients()
         {
-            var HOST_IP = Environment.GetEnvironmentVariable("HOST_IP");
+            var authorizationServer = "jsreport-sample.com";
             return new List<Client>
             {
                 // JavaScript Client
@@ -63,9 +63,9 @@ namespace AuthorizationServer
                     AllowAccessTokensViaBrowser = true,
 
 
-                    RedirectUris = { $"http://{HOST_IP}:5005/callback.html" },
-                    PostLogoutRedirectUris = { $"http://{HOST_IP}:5005/index.html" },
-                    AllowedCorsOrigins = { $"http://{HOST_IP}:5005" },
+                    RedirectUris = { $"http://{authorizationServer}:5005/callback.html" },
+                    PostLogoutRedirectUris = { $"http://{authorizationServer}:5005/index.html" },
+                    AllowedCorsOrigins = { $"http://{authorizationServer}:5005" },
 
                     AllowedScopes =
                     {
@@ -90,7 +90,7 @@ namespace AuthorizationServer
 
                     Claims = new List<Claim>
                     {
-			new Claim("username", "admin"),
+			            new Claim("username", "admin"),
                         new Claim("name", "Admin"),
                         new Claim("website", "https://admin.com")
                     }
