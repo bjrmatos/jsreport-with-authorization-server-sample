@@ -31,7 +31,7 @@ This will map the domain where the sample will run to the local.
 
 ### Starting authorization server
 
-Open `authorization-server.sln` in VS and hit F5 or open command line and run the following command:
+Open `authorization-server` directory and open the file there `authorization-server.sln` in Visual Studio and hit F5 or open command line at `authorization-server` directory and run the following command:
 
 ```sh
 dotnet restore

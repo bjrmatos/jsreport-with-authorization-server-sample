@@ -1,6 +1,6 @@
 var jsreport = require('jsreport')()
 
-if (require.main !== module) {
+if (process.env.JSREPORT_CLI) {
   // export jsreport instance to make it possible to use jsreport-cli
   module.exports = jsreport
 } else {

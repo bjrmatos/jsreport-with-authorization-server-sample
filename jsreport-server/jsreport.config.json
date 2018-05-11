@@ -1,0 +1,40 @@
+{
+  "store": { "provider": "fs" },
+  "httpPort": 5004,
+  "allowLocalFilesAccess": true,
+  "extensions": {
+    "authentication": {
+      "cookieSession": {
+        "secret": "<your strong secret>"
+      },
+      "admin": {
+        "username": "admin",
+        "password": "password"
+      },
+      "authorizationServer": {
+        "tokenValidation": {
+          "endpoint": "http://jsreport-sample.com:5000/connect/introspect",
+          "usernameField": "username",
+          "activeField": "active",
+          "scope": {
+            "valid": ["jsreport"]
+          },
+          "auth": {
+            "type": "basic",
+            "basic": {
+              "clientId": "jsreport",
+              "clientSecret": "secret"
+            }
+          }
+        }
+      },
+      "enabled": true
+    },
+    "authorization": {
+      "enabled": true
+    },
+    "sample-template": {
+      "createSamples": true
+    }
+  }
+}

@@ -166,7 +166,12 @@ function callApi(reportName, reportId, cb) {
             } else {
                 arrayBufferToBase64(new Uint8Array(xhr.response), function (contentB64) {
                     var reportURI = 'data:' + xhr.getResponseHeader('Content-Type') + ';base64, ' + contentB64;
-                    window.open(reportURI, 'jsreport-preview-window');
+                    var iframe = "<html style='width: 100%; height: 100%; margin: 0'><head><title>" + reportName + "</title></head><body style='width: 100%; height: 100%; margin: 0'><iframe width='100%' height='100%' src='" + reportURI + "'></iframe></body></html>"
+                    var win = window.open();
+                    win.document.open();
+                    win.title = reportName
+                    win.document.write(iframe);
+                    win.document.close();
                     cb();
                 })
             }
