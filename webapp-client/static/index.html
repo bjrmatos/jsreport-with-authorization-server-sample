@@ -18,10 +18,10 @@
         <div class="row">
             <ul class="list-unstyled list-inline">
                 <li><a class="btn btn-primary" href="index.html">Home</a></li>
-                <li><button class="btn btn-default request" data-scope='openid' data-type='id_token'>Login Only</button></li>
-                <li><button class="btn btn-default request" data-scope='openid profile email' data-type='id_token'>Get Profile</button></li>
-                <li><button class="btn btn-default request" data-scope='openid profile email jsreport' data-type='id_token token'>Get Profile and Access Token for jsreport</button></li>
-                <li><button class="btn btn-info revoke">Revoke Access Token</button></li>
+                <!-- <li><button class="btn btn-default request" data-scope='openid' data-type='id_token'>Login Only</button></li> -->
+                <!-- <li><button class="btn btn-default request" data-scope='openid profile email' data-type='id_token'>Get Profile</button></li> -->
+                <li><button class="btn btn-default request" data-scope='openid profile email jsreport authProfile' data-type='id_token token'>Get Profile and Access Token for jsreport</button></li>
+                <!-- <li><button class="btn btn-info revoke">Revoke Access Token</button></li> -->
                 <li><button class="btn btn-info logout">Logout</button></li>
             </ul>
         </div>
@@ -67,7 +67,7 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
     <script src="libs/oidc-client.js"></script>
     <script src="app.js"></script>
 </body>

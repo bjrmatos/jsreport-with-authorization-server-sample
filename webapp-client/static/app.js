@@ -15,7 +15,7 @@ var config = {
     // these two will be done dynamically from the buttons clicked, but are
     // needed if you want to use the silent_renew
     response_type: "id_token token",
-    scope: "openid profile email jsreport",
+    scope: "openid jsreport authProfile",
 
     // this will toggle if profile endpoint is used
     loadUserInfo: true,
@@ -83,6 +83,8 @@ function showTokens() {
                     if (reportsInfo.errors) {
                         displayJsreportContent('<p>Error while trying to get reports list from jsreport: ' + reportsInfo.errors.join(', ') + '</p>')
                     } else {
+                        reportsList += '<div><a target="_blank" href="http://' + authorizationServer + ':5004?authServerConnect" class="btn btn-info btn-sm">Open Studio</a></div>'
+                        reportsList += '<br />'
                         reportsList += '<table style="width: 100%;">'
                         reportsList += '<tr>'
                         reportsList += '<th>Report name</th>'
@@ -266,5 +268,8 @@ document.querySelector("#jsreport-content").addEventListener("click", function (
     }
 }, false);
 
-document.querySelector(".revoke").addEventListener("click", revoke, false);
+if (document.querySelector(".revoke")) {
+    document.querySelector(".revoke").addEventListener("click", revoke, false);
+}
+
 document.querySelector(".logout").addEventListener("click", logout, false);

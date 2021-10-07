@@ -3,17 +3,17 @@
 
 Sample demonstrating how to delegate authentication in jsreport to an external authorization server to support Single Sign On
 
- > Sample based on the [original Node.js API IdentityServer4 sample](https://github.com/IdentityServer/IdentityServer4.Samples/tree/release/NodeJsApi)
-
 ## Overview
 
 This sample has three different applications:
 
-- An authorization server (running on port `5000`, powered by [IdentityServer4](https://github.com/IdentityServer/IdentityServer4))
-- A jsreport server (in terms of OAuth2/OpenID Connect jsreport is a resource server here, jsreport is running on port `5004` and it is configured to delegate authentication to the authorization server)
+- An [OpenID](https://openid.net/) authorization server (running on port `5000`, powered by [oidc-provider](https://github.com/panva/node-oidc-provider))
+- A jsreport server (in terms of OAuth2/OpenID jsreport is both a client (jsreport studio) and a resource server (jsreport http api) here, jsreport is running on port `5004` and it is configured to delegate studio authentication and http api authentication to the authorization server)
 - A WebApp client application (running on port `5005`)
 
 The authentication flow starts when the user loads the WebApp client application, in order to be able to render some reports (from jsreport) directly from the WebApp the user needs to be authenticated, to do that user clicks "Get Profile and Access Token for jsreport" button, user is asked to insert its credentials, then it is asked to authorize jsreport application access, after the authentication is done the user is able to see a list of reports available in jsreport and have the option to render any of them.
+
+You are also able to load the jsreport studio and use it without entering any credentials (only it will required to authorize the studio to access its information), this is possible because you have authenticated already with the authorization server. To see this in action just click the "Open Studio" button on the WebApp.
 
 The sample demonstrates how jsreport can be exposed as a product with Single Sign On support and how it can be accessed from another application (for example a WebApp application).
 
@@ -21,7 +21,7 @@ The sample demonstrates how jsreport can be exposed as a product with Single Sig
 
 ### Initialize
 
-1. make sure you have .NET Core (1.0 or 1.1) and Node.js (>=4) installed
+1. make sure you have Node.js (>=14) installed
 
 2. `git clone https://github.com/bjrmatos/jsreport-with-authorization-server-sample.git`
 
@@ -31,14 +31,10 @@ This will map the domain where the sample will run to the local.
 
 ### Starting authorization server
 
-Open `authorization-server` directory and open the file there `authorization-server.sln` in Visual Studio and hit F5 or open command line at `authorization-server` directory and run the following command:
-
-```sh
-dotnet restore
-dotnet run
-```
-
-You should check the running server through the browser on [http://jsreport-sample.com:5000](http://jsreport-sample.com:5000)
+1. open `authorization-server` directory in command line
+2. `npm install`
+3. `npm start`
+4. Check the running server on [http://jsreport-sample.com:5000](http://jsreport-sample.com:5000)
 
 ### Starting jsreport server
 1. open `jsreport-server` directory in command line
@@ -55,76 +51,71 @@ You should check the running server through the browser on [http://jsreport-samp
 
 ## Testing auth workflow in sample
 
-Open [http://jsreport-sample.com:5005](http://jsreport-sample.com:5005)  in your browser and click the "Get Profile and Access Token for jsreport" Button (`User: admin, Password: password`):
+1. Open [http://jsreport-sample.com:5005](http://jsreport-sample.com:5005)  in your browser and click the "Get Profile and Access Token for jsreport" Button (`User: admin, Password: password`):
 
 ![screenshot](images/screenshot.png)
 
 ![screenshot-login](images/screenshot-login.png)
 
-5. Authorize jsreport application access
+2. Authorize jsreport application access
 
 ![screenshot-login2](images/screenshot-login2.png)
 
-6. Render some reports
+3. Render some reports
 
 ![reports-list](images/reports-list.png)
 
 ![report](images/report.png)
 
+4. Open Studio and verify you are also authenticated there
+
+![open-studio-button](images/open-studio.png)
+
+![open-studio-loaded](images/open-studio2.png)
+
 ## Technical notes
 
 ### authorization server
-The implementation builds on the original [Identity Server sample](https://github.com/IdentityServer/IdentityServer4.Samples/tree/release/NodeJsApi). We just removed the authentication through credentials and use host name instead of host IP to simplify the sample startup. The `Config.cs` then includes some changes which are discussed in the next chapter.
+The implementation builds on the node.js [oidc-provider](https://github.com/panva/node-oidc-provider), and use the defaults and some extra option to provide a working authorization server for the demo.
 
 ### jsreport configuration
-jsreport server is running with default `dev.config.json` configuration except the `authorizationServer` node in the config.
+jsreport server is running with `jsreport.config.json` configuration with additional `authorizationServer` field in the config.
 
 ```js
 "authorizationServer": {
-  "tokenValidation": {
-    "endpoint": "http://jsreport-sample.com:5000/connect/introspect",
-    "usernameField": "username",
-    "activeField": "active",
-    "scope": {
-      "valid": ["jsreport"]
-    },
-    "auth": {
-      "type": "basic",
-      "basic": {
-        "clientId": "jsreport",
-        "clientSecret": "secret"
-      }
-	}
+  "name": "AuthServer",
+  "issuer": "http://jsreport-sample.com:5000",
+  "endpoints": {
+    "jwks": "http://jsreport-sample.com:5000/.well-known/openid-configuration/jwks",
+    "authorization": "http://jsreport-sample.com:5000/connect/authorize",
+    "token": "http://jsreport-sample.com:5000/connect/token",
+    "introspection": "http://jsreport-sample.com:5000/connect/introspect",
+    "userinfo": "http://jsreport-sample.com:5000/connect/userinfo"
+  },
+  "studioClient": {
+    "clientId": "jsreport-studio",
+    "clientSecret": "secret"
+  },
+  "apiResource": {
+    "clientId": "jsreport-api",
+    "clientSecret": "secret"
+  },
+  "authorizationRequest": {
+    "scope": ["jsreport", "authProfile"]
+  },
+  "introspectionRequest": {
+    "tokenValidScopes": ["jsreport"]
+  }
 }
 ```
 
-The values here should correspond with the authorization server configuration. Namely
-
-
-#### usernameField
-This determines which jsreport user should be used based on the response from the authorization server. In this case the authorization server defines this field using the list of claims. See `Config.cs`.
-
-```cs
-new TestUser {
- SubjectId = "1",
-  Username = "admin",
-  Password = "password",
-
-  Claims = new List < Claim > {
-   new Claim("username", "admin"),
-   new Claim("name", "Admin"),
-   new Claim("website", "https://admin.com")
-  }
-};
-```
-
-Here we define that the admin user authenticated though authorization server should be authenticated as admin in jsreport. We can also add the claim `new Claim("username", "admin")` to any other user and let it be authenticated as jsreport admin. See `TestUsers.cs`.
+The values here should correspond with the authorization server configuration. we define that the admin user authenticated though authorization server should be authenticated as admin in jsreport.
 
 #### auth
-The authorization server is not public and jsreport needs to be authenticated. In this case we use `basic` authentication with defined `secret`. See the `Config.cs#GetApiResources` for corresponding values.
+The authorization server is not public and jsreport (studio and http api) needs to be authenticated. In this case we use `studioClient` and `apiResource` which contains the credentials for each type of client.
 
 ### web app client
-The web app client is mostly taken from the original [Identity Server sample](https://github.com/IdentityServer/IdentityServer4.Samples/tree/release/NodeJsApi). The same code is used to request the authentication. The most notable part is that the output access token is then passed to the jsreport server through request `Authorization` header.
+The most notable part is that the output access token (obtained from authorization server) is then passed to the jsreport server through request `Authorization` header, which will authenticate the call accordingly.
 ```js
 xhr.open("POST", "http://" + authorizationServer + ":5004/api/report", true);
 xhr.setRequestHeader("Authorization", "Bearer " + user.access_token);

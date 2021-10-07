@@ -1,7 +1,10 @@
 {
-  "store": { "provider": "fs" },
   "httpPort": 5004,
   "allowLocalFilesAccess": true,
+  "store": {
+    "provider": "fs"
+  },
+  "reportTimeout": 60000,
   "extensions": {
     "authentication": {
       "cookieSession": {
@@ -12,20 +15,28 @@
         "password": "password"
       },
       "authorizationServer": {
-        "tokenValidation": {
-          "endpoint": "http://jsreport-sample.com:5000/connect/introspect",
-          "usernameField": "username",
-          "activeField": "active",
-          "scope": {
-            "valid": ["jsreport"]
-          },
-          "auth": {
-            "type": "basic",
-            "basic": {
-              "clientId": "jsreport",
-              "clientSecret": "secret"
-            }
-          }
+        "name": "AuthServer",
+        "issuer": "http://jsreport-sample.com:5000",
+        "endpoints": {
+          "jwks": "http://jsreport-sample.com:5000/.well-known/openid-configuration/jwks",
+          "authorization": "http://jsreport-sample.com:5000/connect/authorize",
+          "token": "http://jsreport-sample.com:5000/connect/token",
+          "introspection": "http://jsreport-sample.com:5000/connect/introspect",
+          "userinfo": "http://jsreport-sample.com:5000/connect/userinfo"
+        },
+        "studioClient": {
+          "clientId": "jsreport-studio",
+          "clientSecret": "secret"
+        },
+        "apiResource": {
+          "clientId": "jsreport-api",
+          "clientSecret": "secret"
+        },
+        "authorizationRequest": {
+          "scope": ["jsreport", "authProfile"]
+        },
+        "introspectionRequest": {
+          "tokenValidScopes": ["jsreport"]
         }
       },
       "enabled": true
