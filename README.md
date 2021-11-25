@@ -1,5 +1,5 @@
 
-# jsreport authentication with authorization server (IdentityServer4)
+# jsreport authentication with authorization server
 
 Sample demonstrating how to delegate authentication in jsreport to an external authorization server to support Single Sign On
 
