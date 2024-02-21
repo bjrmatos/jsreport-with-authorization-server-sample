@@ -16,13 +16,13 @@
       },
       "authorizationServer": {
         "name": "AuthServer",
-        "issuer": "http://jsreport-sample.com:5000",
+        "issuer": "http://jsreport-sample.com:5005",
         "endpoints": {
-          "jwks": "http://jsreport-sample.com:5000/.well-known/openid-configuration/jwks",
-          "authorization": "http://jsreport-sample.com:5000/connect/authorize",
-          "token": "http://jsreport-sample.com:5000/connect/token",
-          "introspection": "http://jsreport-sample.com:5000/connect/introspect",
-          "userinfo": "http://jsreport-sample.com:5000/connect/userinfo"
+          "jwks": "http://jsreport-sample.com:5005/.well-known/openid-configuration/jwks",
+          "authorization": "http://jsreport-sample.com:5005/connect/authorize",
+          "token": "http://jsreport-sample.com:5005/connect/token",
+          "introspection": "http://jsreport-sample.com:5005/connect/introspect",
+          "userinfo": "http://jsreport-sample.com:5005/connect/userinfo"
         },
         "studioClient": {
           "clientId": "jsreport-studio",

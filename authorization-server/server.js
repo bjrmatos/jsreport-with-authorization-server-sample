@@ -1,8 +1,8 @@
 const createOIDCServer = require('./authServer')
 
 createOIDCServer({
-  issuer: 'http://jsreport-sample.com:5000',
-  port: 5000,
+  issuer: 'http://jsreport-sample.com:5005',
+  port: 5005,
   studioClient: {
     clientId: 'jsreport-studio',
     clientSecret: 'secret',
@@ -15,7 +15,7 @@ createOIDCServer({
   webAppClient: {
     clientId: 'js_oidc',
     clientSecret: 'secret',
-    redirectUri: 'http://jsreport-sample.com:5005/callback.html',
-    logoutRedirectUri: 'http://jsreport-sample.com:5005/index.html'
+    redirectUri: 'http://jsreport-sample.com:5006/callback.html',
+    logoutRedirectUri: 'http://jsreport-sample.com:5006/index.html'
   }
 })

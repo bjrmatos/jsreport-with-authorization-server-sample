@@ -3,7 +3,7 @@
 var authorizationServer = 'jsreport-sample.com'
 
 var config = {
-    authority: "http://" + authorizationServer + ":5000/",
+    authority: "http://" + authorizationServer + ":5005/",
     client_id: "js_oidc",
     redirect_uri: window.location.protocol + "//" + window.location.host + "/callback.html",
     post_logout_redirect_uri: window.location.protocol + "//" + window.location.host + "/index.html",

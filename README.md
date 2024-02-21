@@ -7,9 +7,9 @@ Sample demonstrating how to delegate authentication in jsreport to an external a
 
 This sample has three different applications:
 
-- An [OpenID](https://openid.net/) authorization server (running on port `5000`, powered by [oidc-provider](https://github.com/panva/node-oidc-provider))
+- An [OpenID](https://openid.net/) authorization server (running on port `5005`, powered by [oidc-provider](https://github.com/panva/node-oidc-provider))
 - A jsreport server (in terms of OAuth2/OpenID jsreport is both a client (jsreport studio) and a resource server (jsreport http api) here, jsreport is running on port `5004` and it is configured to delegate studio authentication and http api authentication to the authorization server)
-- A WebApp client application (running on port `5005`)
+- A WebApp client application (running on port `5006`)
 
 The authentication flow starts when the user loads the WebApp client application, in order to be able to render some reports (from jsreport) directly from the WebApp the user needs to be authenticated, to do that user clicks "Get Profile and Access Token for jsreport" button, user is asked to insert its credentials, then it is asked to authorize jsreport application access, after the authentication is done the user is able to see a list of reports available in jsreport and have the option to render any of them.
 
@@ -21,7 +21,7 @@ The sample demonstrates how jsreport can be exposed as a product with Single Sig
 
 ### Initialize
 
-1. make sure you have Node.js (>=14) installed
+1. make sure you have Node.js (>=18.15) installed
 
 2. `git clone https://github.com/bjrmatos/jsreport-with-authorization-server-sample.git`
 
@@ -34,7 +34,7 @@ This will map the domain where the sample will run to the local.
 1. open `authorization-server` directory in command line
 2. `npm install`
 3. `npm start`
-4. Check the running server on [http://jsreport-sample.com:5000](http://jsreport-sample.com:5000)
+4. Check the running server on [http://jsreport-sample.com:5005](http://jsreport-sample.com:5005)
 
 ### Starting jsreport server
 1. open `jsreport-server` directory in command line
@@ -47,11 +47,11 @@ This will map the domain where the sample will run to the local.
 1. open `webapp-client` directory in command line
 2. `npm install`
 3. `npm start`
-4. Check the running app on [http://jsreport-sample.com:5005](http://jsreport-sample.com:5005)
+4. Check the running app on [http://jsreport-sample.com:5006](http://jsreport-sample.com:5006)
 
 ## Testing auth workflow in sample
 
-1. Open [http://jsreport-sample.com:5005](http://jsreport-sample.com:5005)  in your browser and click the "Get Profile and Access Token for jsreport" Button (`User: admin, Password: password`):
+1. Open [http://jsreport-sample.com:5006](http://jsreport-sample.com:5006)  in your browser and click the "Get Profile and Access Token for jsreport" Button (`User: admin, Password: password`):
 
 ![screenshot](images/screenshot.png)
 
@@ -84,13 +84,13 @@ jsreport server is running with `jsreport.config.json` configuration with additi
 ```js
 "authorizationServer": {
   "name": "AuthServer",
-  "issuer": "http://jsreport-sample.com:5000",
+  "issuer": "http://jsreport-sample.com:5005",
   "endpoints": {
-    "jwks": "http://jsreport-sample.com:5000/.well-known/openid-configuration/jwks",
-    "authorization": "http://jsreport-sample.com:5000/connect/authorize",
-    "token": "http://jsreport-sample.com:5000/connect/token",
-    "introspection": "http://jsreport-sample.com:5000/connect/introspect",
-    "userinfo": "http://jsreport-sample.com:5000/connect/userinfo"
+    "jwks": "http://jsreport-sample.com:5005/.well-known/openid-configuration/jwks",
+    "authorization": "http://jsreport-sample.com:5005/connect/authorize",
+    "token": "http://jsreport-sample.com:5005/connect/token",
+    "introspection": "http://jsreport-sample.com:5005/connect/introspect",
+    "userinfo": "http://jsreport-sample.com:5005/connect/userinfo"
   },
   "studioClient": {
     "clientId": "jsreport-studio",

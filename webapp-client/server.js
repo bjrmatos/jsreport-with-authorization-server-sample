@@ -5,6 +5,6 @@ const app = express();
 
 app.use('/', express.static(__dirname + '/static'));
 
-app.listen(5005, () => {  
-  console.log('listening on port 5005');
+app.listen(5006, () => {
+  console.log('listening on port 5006');
 });
